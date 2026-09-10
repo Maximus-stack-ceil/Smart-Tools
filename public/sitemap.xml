@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Core Static Pages -->
+  <url>
+    <loc>https://smarttools.org/</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://smarttools.org/about</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://smarttools.org/privacy</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://smarttools.org/terms</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://smarttools.org/contact</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- Categories -->
+  <url><loc>https://smarttools.org/category/finance</loc><priority>0.8</priority></url>
+  <url><loc>https://smarttools.org/category/health</loc><priority>0.8</priority></url>
+  <url><loc>https://smarttools.org/category/datetime</loc><priority>0.8</priority></url>
+  <url><loc>https://smarttools.org/category/text</loc><priority>0.8</priority></url>
+  <url><loc>https://smarttools.org/category/developer</loc><priority>0.8</priority></url>
+  <url><loc>https://smarttools.org/category/generators</loc><priority>0.8</priority></url>
+  <url><loc>https://smarttools.org/category/image</loc><priority>0.8</priority></url>
+  <url><loc>https://smarttools.org/category/travel</loc><priority>0.8</priority></url>
+
+  <!-- Tools (39 Programmatic Registry Items) -->
+  <url><loc>https://smarttools.org/tool/percentage-calculator</loc><priority>0.9</priority></url>
+  <url><loc>https://smarttools.org/tool/age-calculator</loc><priority>0.9</priority></url>
+  <url><loc>https://smarttools.org/tool/loan-calculator</loc><priority>0.9</priority></url>
+  <url><loc>https://smarttools.org/tool/bmi-calculator</loc><priority>0.9</priority></url>
+  <url><loc>https://smarttools.org/tool/word-counter</loc><priority>0.9</priority></url>
+  <url><loc>https://smarttools.org/tool/case-converter</loc><priority>0.8</priority></url>
+  <url><loc>https://smarttools.org/tool/qr-code-generator</loc><priority>0.9</priority></url>
+  <url><loc>https://smarttools.org/tool/password-generator</loc><priority>0.9</priority></url>
+  <url><loc>https://smarttools.org/tool/json-formatter</loc><priority>0.9</priority></url>
+  <url><loc>https://smarttools.org/tool/base64-tool</loc><priority>0.8</priority></url>
+  <url><loc>https://smarttools.org/tool/unit-converter</loc><priority>0.9</priority></url>
+  <url><loc>https://smarttools.org/tool/date-difference-calculator</loc><priority>0.8</priority></url>
+  <url><loc>https://smarttools.org/tool/uuid-generator</loc><priority>0.8</priority></url>
+  <url><loc>https://smarttools.org/tool/color-converter</loc><priority>0.8</priority></url>
+  <url><loc>https://smarttools.org/tool/image-converter</loc><priority>0.8</priority></url>
+  <url><loc>https://smarttools.org/tool/discount-calculator</loc><priority>0.9</priority></url>
+  <url><loc>https://smarttools.org/tool/tip-calculator</loc><priority>0.9</priority></url>
+  <url><loc>https://smarttools.org/tool/simple-interest-calculator</loc><priority>0.8</priority></url>
+  <url><loc>https://smarttools.org/tool/compound-interest-calculator</loc><priority>0.9</priority></url>
+  <url><loc>https://smarttools.org/tool/savings-calculator</loc><priority>0.8</priority></url>
+  <url><loc>https://smarttools.org/tool/countdown-timer</loc><priority>0.9</priority></url>
+  <url><loc>https://smarttools.org/tool/time-zone-converter</loc><priority>0.9</priority></url>
+  <url><loc>https://smarttools.org/tool/ideal-weight-calculator</loc><priority>0.8</priority></url>
+  <url><loc>https://smarttools.org/tool/water-intake-calculator</loc><priority>0.8</priority></url>
+  <url><loc>https://smarttools.org/tool/calorie-calculator</loc><priority>0.9</priority></url>
+  <url><loc>https://smarttools.org/tool/character-counter</loc><priority>0.8</priority></url>
+  <url><loc>https://smarttools.org/tool/sentence-counter</loc><priority>0.8</priority></url>
+  <url><loc>https://smarttools.org/tool/remove-duplicate-lines</loc><priority>0.8</priority></url>
+  <url><loc>https://smarttools.org/tool/text-cleaner</loc><priority>0.8</priority></url>
+  <url><loc>https://smarttools.org/tool/json-validator</loc><priority>0.9</priority></url>
+  <url><loc>https://smarttools.org/tool/url-encoder-decoder</loc><priority>0.8</priority></url>
+  <url><loc>https://smarttools.org/tool/unix-timestamp-converter</loc><priority>0.9</priority></url>
+  <url><loc>https://smarttools.org/tool/random-number-generator</loc><priority>0.8</priority></url>
+  <url><loc>https://smarttools.org/tool/username-generator</loc><priority>0.8</priority></url>
+  <url><loc>https://smarttools.org/tool/image-compressor</loc><priority>0.9</priority></url>
+  <url><loc>https://smarttools.org/tool/image-resizer</loc><priority>0.8</priority></url>
+  <url><loc>https://smarttools.org/tool/jpg-to-png</loc><priority>0.8</priority></url>
+  <url><loc>https://smarttools.org/tool/png-to-jpg</loc><priority>0.8</priority></url>
+  <url><loc>https://smarttools.org/tool/image-cropper</loc><priority>0.8</priority></url>
+</urlset>

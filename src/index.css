@@ -1,0 +1,236 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  --color-app-bg: var(--color-bg);
+  --color-app-surface: var(--color-surface);
+  --color-app-border: var(--color-border);
+  --color-app-text: var(--color-text-primary);
+  --color-app-text-muted: var(--color-text-secondary);
+  --color-app-accent: var(--color-accent);
+  --color-app-accent-hover: var(--color-accent-hover);
+  --color-app-accent-light: var(--color-accent-light);
+
+  /* Primary Accent Extension Tokens */
+  --color-accent: var(--color-accent);
+  --color-accent-hover: var(--color-accent-hover);
+  --color-accent-active: var(--color-accent-active);
+  --color-accent-subtle: var(--color-accent-subtle);
+  --color-accent-border: var(--color-accent-border);
+  --color-accent-result: var(--color-accent-result-bg);
+  --color-accent-result-border: var(--color-accent-result-border);
+
+  /* Semantic Feedback Tokens */
+  --color-semantic-success: var(--color-success);
+  --color-semantic-success-text: var(--color-success-text);
+  --color-semantic-success-bg: var(--color-success-bg);
+  --color-semantic-success-border: var(--color-success-border);
+
+  --color-semantic-error: var(--color-error);
+  --color-semantic-error-text: var(--color-error-text);
+  --color-semantic-error-bg: var(--color-error-bg);
+  --color-semantic-error-border: var(--color-error-border);
+
+  --color-semantic-warning: var(--color-warning);
+  --color-semantic-warning-text: var(--color-warning-text);
+  --color-semantic-warning-bg: var(--color-warning-bg);
+  --color-semantic-warning-border: var(--color-warning-border);
+
+  /* Tool Category Color System Tokens */
+  --color-cat-finance: var(--color-category-finance);
+  --color-cat-finance-bg: var(--color-category-finance-bg);
+  --color-cat-finance-border: var(--color-category-finance-border);
+
+  --color-cat-health: var(--color-category-health);
+  --color-cat-health-bg: var(--color-category-health-bg);
+  --color-cat-health-border: var(--color-category-health-border);
+
+  --color-cat-datetime: var(--color-category-datetime);
+  --color-cat-datetime-bg: var(--color-category-datetime-bg);
+  --color-cat-datetime-border: var(--color-category-datetime-border);
+
+  --color-cat-travel: var(--color-category-travel);
+  --color-cat-travel-bg: var(--color-category-travel-bg);
+  --color-cat-travel-border: var(--color-category-travel-border);
+
+  --color-cat-image: var(--color-category-image);
+  --color-cat-image-bg: var(--color-category-image-bg);
+  --color-cat-image-border: var(--color-category-image-border);
+
+  --color-cat-text: var(--color-category-text);
+  --color-cat-text-bg: var(--color-category-text-bg);
+  --color-cat-text-border: var(--color-category-text-border);
+
+  --color-cat-developer: var(--color-category-developer);
+  --color-cat-developer-bg: var(--color-category-developer-bg);
+  --color-cat-developer-border: var(--color-category-developer-border);
+
+  --color-cat-generators: var(--color-category-generators);
+  --color-cat-generators-bg: var(--color-category-generators-bg);
+  --color-cat-generators-border: var(--color-category-generators-border);
+
+  --color-cat-ai: var(--color-category-ai);
+  --color-cat-ai-bg: var(--color-category-ai-bg);
+  --color-cat-ai-border: var(--color-category-ai-border);
+}
+
+:root {
+  /* Header Height System */
+  --header-height: 65px;
+  --header-height-normal: 65px;
+  --header-height-scrolled: 57px;
+
+  /* Neutral Base System */
+  --color-bg: #FAFAFA;
+  --color-surface: #FFFFFF;
+  --color-border: #E5E7EB;
+  --color-text-primary: #111827;
+  --color-text-secondary: #4B5563;
+  --color-text-muted: #6B7280;
+
+  /* Primary Brand Accent (Single Hue Family: Indigo) */
+  --color-accent: #4F46E5;
+  --color-accent-hover: #4338CA;
+  --color-accent-active: #3730A3;
+  --color-accent-light: #EEF2FF;
+  --color-accent-subtle: #EEF2FF;
+  --color-accent-border: #C7D2FE;
+  --color-accent-result-bg: rgba(79, 70, 229, 0.055);
+  --color-accent-result-border: rgba(79, 70, 229, 0.14);
+
+  /* Semantic Feedback (Fixed & Strictly Separate from Category Colors) */
+  --color-success: #16A34A;
+  --color-success-text: #15803D;
+  --color-success-bg: #F0FDF4;
+  --color-success-border: #BBF7D0;
+
+  --color-error: #DC2626;
+  --color-error-text: #B91C1C;
+  --color-error-bg: #FEF2F2;
+  --color-error-border: #FECACA;
+
+  --color-warning: #D97706;
+  --color-warning-text: #B45309;
+  --color-warning-bg: #FFFBEB;
+  --color-warning-border: #FDE68A;
+
+  /* Category Color Palette (Harmonized lightness ~25-35% text, ~97-98% bg tint) */
+  /* 1. Finance (Emerald family - distinct from semantic success green) */
+  --color-category-finance: #047857;
+  --color-category-finance-bg: #ECFDF5;
+  --color-category-finance-border: #A7F3D0;
+
+  /* 2. Health & Fitness (Rose / Berry family - distinct from semantic error red) */
+  --color-category-health: #BE123C;
+  --color-category-health-bg: #FFF1F2;
+  --color-category-health-border: #FECDD3;
+
+  /* 3. Date & Time (Sky Blue family) */
+  --color-category-datetime: #0369A1;
+  --color-category-datetime-bg: #F0F9FF;
+  --color-category-datetime-border: #BAE6FD;
+
+  /* 4. Travel & Units (Orange family) */
+  --color-category-travel: #C2410C;
+  --color-category-travel-bg: #FFF7ED;
+  --color-category-travel-border: #FED7AA;
+
+  /* 5. Image Tools (Purple family) */
+  --color-category-image: #7E22CE;
+  --color-category-image-bg: #FAF5FF;
+  --color-category-image-border: #E9D5FF;
+
+  /* 6. Text Tools (Warm Ochre / Gold family - distinct from semantic warning amber) */
+  --color-category-text: #854D0E;
+  --color-category-text-bg: #FEFCE8;
+  --color-category-text-border: #FEF08A;
+
+  /* 7. Developer Tools (Slate / Steel-Blue family) */
+  --color-category-developer: #334155;
+  --color-category-developer-bg: #F1F5F9;
+  --color-category-developer-border: #CBD5E1;
+
+  /* 8. Generators (Teal family) */
+  --color-category-generators: #0F766E;
+  --color-category-generators-bg: #F0FDFA;
+  --color-category-generators-border: #99F6E4;
+
+  /* 9. AI Tools (Violet family - future readiness) */
+  --color-category-ai: #6D28D9;
+  --color-category-ai-bg: #F5F3FF;
+  --color-category-ai-border: #DDD6FE;
+
+  /* Dark Mode Token Pairs (Architecture Readiness - No active toggle required) */
+  --color-bg-dark: #0F172A;
+  --color-surface-dark: #1E293B;
+  --color-border-dark: #334155;
+  --color-text-primary-dark: #F8FAFC;
+  --color-text-secondary-dark: #94A3B8;
+
+  --color-accent-dark: #818CF8;
+  --color-accent-hover-dark: #A5B4FC;
+  --color-accent-result-bg-dark: rgba(129, 140, 248, 0.08);
+  --color-accent-result-border-dark: rgba(129, 140, 248, 0.22);
+
+  --color-success-dark: #4ADE80;
+  --color-error-dark: #F87171;
+  --color-warning-dark: #FBBF24;
+
+  --color-category-finance-dark: #34D399;
+  --color-category-health-dark: #FB7185;
+  --color-category-datetime-dark: #38BDF8;
+  --color-category-travel-dark: #FB923C;
+  --color-category-image-dark: #C084FC;
+  --color-category-text-dark: #FACC15;
+  --color-category-developer-dark: #94A3B8;
+  --color-category-generators-dark: #2DD4BF;
+  --color-category-ai-dark: #A78BFA;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-weight: 400; /* Standardize body text to minimum 400 (regular) */
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Problem 1: Typography Weight Hierarchy */
+h1, h2 {
+  font-weight: 700; /* Bold headings */
+}
+
+h3, h4 {
+  font-weight: 600; /* Semibold subheadings */
+}
+
+label, button, nav a {
+  font-weight: 500; /* Medium minimum for interactive elements and labels */
+}
+
+/* Ensure in-page anchor links and scroll restoration account for fixed header */
+html {
+  scroll-padding-top: calc(var(--header-height, 65px) + 16px);
+}
+
+[id] {
+  scroll-margin-top: calc(var(--header-height, 65px) + 16px);
+}
+
+/* Problem 3: Card and Result Panel Soft Separation (Replacing harsh 1px borders with soft depth) */
+.tool-result-panel,
+[id$="-result-panel"],
+[id$="-result"] {
+  background-color: var(--color-accent-result-bg);
+  border: 1px solid rgba(79, 70, 229, 0.12) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+/* Interactive tool input cards: soften harsh border to a barely visible edge with soft depth shadow */
+section[aria-label="Interactive Tool"] > div {
+  border-color: rgba(0, 0, 0, 0.04) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
