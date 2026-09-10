@@ -1148,7 +1148,29 @@ export const TOOL_REGISTRY: ToolMeta[] = [
 ];
 
 export function getToolBySlug(slug: string): ToolMeta | undefined {
-  return TOOL_REGISTRY.find((tool) => tool.slug === slug);
+  if (!slug) return undefined;
+  const normalized = slug.toLowerCase().trim();
+  return TOOL_REGISTRY.find((tool) => {
+    if (tool.slug === normalized || tool.id === normalized) return true;
+    if (
+      (normalized === 'universal-unit-converter' || normalized === 'unit-converter') &&
+      (tool.slug === 'unit-converter' || tool.slug === 'universal-unit-converter')
+    ) {
+      return true;
+    }
+    if (
+      (normalized === 'base64-tool' ||
+        normalized === 'base64-encoder' ||
+        normalized === 'base64-decoder' ||
+        normalized === 'base64-converter' ||
+        normalized === 'base64-encoder-decoder' ||
+        normalized === 'base64') &&
+      tool.slug === 'base64-tool'
+    ) {
+      return true;
+    }
+    return false;
+  });
 }
 
 export function getToolsByCategory(categoryId: CategoryId): ToolMeta[] {
