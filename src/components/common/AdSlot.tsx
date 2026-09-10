@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import { trackEvent } from '../../utils/analytics';
 
-export type AdPosition = 'top' | 'content' | 'in-content' | 'result' | 'result-area' | 'bottom';
+export type AdPosition = 'top' | 'result' | 'result-area' | 'bottom' | 'content' | 'in-content';
 
 interface AdSlotProps {
   position: AdPosition;
@@ -9,58 +10,100 @@ interface AdSlotProps {
   adId?: string;
 }
 
+/**
+ * Extracts clean 32-character hex key if user pasted the entire <script> snippet
+ * into the environment variable or Settings.
+ */
+function extractAdKey(rawKey?: string): string {
+  if (!rawKey) return '';
+  const match = rawKey.match(/[a-f0-9]{32}/i);
+  return match ? match[0] : rawKey.trim();
+}
+
 export const AdSlot: React.FC<AdSlotProps> = ({ position, className = '', adId }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const location = useLocation();
+  const rawKey = import.meta.env.VITE_ADSTERRA_BANNER_KEY;
+  const adKey = extractAdKey(rawKey);
+
   useEffect(() => {
-    trackEvent('ad_slot_rendered', { position, adId: adId || `ad-slot-${position}` });
-  }, [position, adId]);
+    // If no ad key is configured, do not attempt injection
+    if (!adKey) return;
 
-  // Normalized position mapping
-  const normPosition = position === 'content' ? 'in-content' : position === 'result' ? 'result-area' : position;
+    trackEvent('ad_slot_rendered', {
+      position,
+      adId: adId || `ad-slot-${position}`,
+      path: location.pathname,
+    });
 
-  // Configured reserved dimensions according to IAB / Adsterra standard banner sizes
-  // to avoid Cumulative Layout Shift (CLS)
-  const sizeConfig = {
-    top: {
-      minHeight: '90px',
-      maxHeight: '90px',
-      label: 'Advertisement (Leaderboard 728×90)',
-      containerClass: 'w-full max-w-[728px] mx-auto min-h-[90px] my-4',
-    },
-    'in-content': {
-      minHeight: '250px',
-      maxHeight: '280px',
-      label: 'Advertisement (Rectangle 300×250 / 336×280)',
-      containerClass: 'w-full max-w-[336px] mx-auto min-h-[250px] my-6',
-    },
-    'result-area': {
-      minHeight: '100px',
-      maxHeight: '120px',
-      label: 'Sponsor / Advertisement (728×90 or responsive banner)',
-      containerClass: 'w-full max-w-[728px] mx-auto min-h-[100px] mt-6 mb-4',
-    },
-    bottom: {
-      minHeight: '90px',
-      maxHeight: '100px',
-      label: 'Advertisement (Footer Banner 728×90)',
-      containerClass: 'w-full max-w-[728px] mx-auto min-h-[90px] my-8',
-    },
-  }[normPosition];
+    const container = containerRef.current;
+    if (!container) return;
+
+    // Clear previous ad content to prevent stacking or duplication on route transitions
+    container.innerHTML = '';
+
+    const atOptionsConfig = {
+      key: adKey,
+      format: 'iframe',
+      height: 90,
+      width: 728,
+      params: {},
+    };
+
+    // Ensure global atOptions is available on window
+    (window as unknown as { atOptions?: unknown }).atOptions = atOptionsConfig;
+
+    // Create script 1: atOptions config script using JSON.stringify + textContent
+    const optionsScript = document.createElement('script');
+    optionsScript.type = 'text/javascript';
+    optionsScript.textContent = `atOptions = ${JSON.stringify(atOptionsConfig)};`;
+
+    // Create script 2: invoke.js loader script
+    const invokeScript = document.createElement('script');
+    invokeScript.type = 'text/javascript';
+    invokeScript.src = `https://www.highrevenueformat.com/${adKey}/invoke.js`;
+    invokeScript.async = true;
+
+    // Append config script first, then invoke script
+    container.appendChild(optionsScript);
+    container.appendChild(invokeScript);
+
+    // Cleanup on unmount or before re-injection to avoid duplicate ads
+    return () => {
+      if (container) {
+        container.innerHTML = '';
+      }
+    };
+  }, [adKey, position, adId, location.pathname]);
+
+  // If env variable is missing/empty, render nothing rather than a broken layout
+  if (!adKey) {
+    return null;
+  }
+
+  const slotIdentifier = adId || `ad-slot-${position}`;
 
   return (
     <aside
-      id={adId || `ad-slot-${position}`}
-      aria-label="Advertisement placeholder"
-      className={`relative overflow-hidden rounded-lg border border-dashed border-gray-200 bg-gray-50/75 flex flex-col items-center justify-center p-3 text-center transition-opacity select-none ${sizeConfig.containerClass} ${className}`}
-      style={{ minHeight: sizeConfig.minHeight }}
+      id={slotIdentifier}
+      aria-label="Advertisement"
+      className={`w-full flex flex-col items-center justify-center my-6 ${className}`}
     >
-      <div className="flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-wider text-gray-400">
-        <span>Ad Space</span>
-        <span className="text-gray-300">•</span>
-        <span className="hidden sm:inline">{sizeConfig.label}</span>
+      {/* Required Advertisement label to distinguish from real content */}
+      <div className="flex items-center justify-center gap-1.5 text-[11px] font-medium uppercase tracking-wider text-gray-400 mb-2 select-none">
+        <span>Advertisement</span>
       </div>
-      <p className="text-xs text-gray-400 mt-1 max-w-xs">
-        Clean reserved slot for ad networks. Prevents layout shift.
-      </p>
+
+      {/* Reserved fixed container size (728x90) with responsive centering to prevent layout shift */}
+      <div className="w-full max-w-[728px] overflow-x-auto sm:overflow-visible flex justify-center">
+        <div
+          ref={containerRef}
+          id={`ad-container-${position}`}
+          className="w-[728px] h-[90px] min-w-[728px] min-h-[90px] flex items-center justify-center bg-transparent"
+          style={{ width: '728px', height: '90px' }}
+        />
+      </div>
     </aside>
   );
 };
+

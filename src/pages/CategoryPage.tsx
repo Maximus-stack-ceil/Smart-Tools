@@ -4,7 +4,7 @@ import { CATEGORIES, TOOLS_LIST } from '../data/toolsData';
 import { ToolCard } from '../components/common/ToolCard';
 import { Breadcrumbs } from '../components/common/Breadcrumbs';
 import { DynamicIcon } from '../components/common/DynamicIcon';
-import { AdSlot } from '../components/common/AdSlot';
+import { NativeAdSlot } from '../components/common/NativeAdSlot';
 import { Search, ArrowLeft } from 'lucide-react';
 
 export const CategoryPage: React.FC = () => {
@@ -13,6 +13,7 @@ export const CategoryPage: React.FC = () => {
 
   const category = categorySlug ? CATEGORIES[categorySlug] : undefined;
   const tools = TOOLS_LIST.filter((t) => t.categoryId === categorySlug);
+  const otherCategories = Object.values(CATEGORIES).filter((c) => c.id !== categorySlug);
 
   const filteredTools = filterQuery.trim()
     ? tools.filter(
@@ -78,32 +79,54 @@ export const CategoryPage: React.FC = () => {
         </div>
       </div>
 
-      <AdSlot position="top" />
+      {/* Layout with Tools Grid and Sidebar */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Tools Grid (8 Cols on Desktop) */}
+        <div className="lg:col-span-8 min-w-0">
+          <div className="flex items-center justify-between mb-4">
+            <span className="text-xs font-semibold uppercase tracking-wider text-gray-400">
+              Available Tools ({filteredTools.length})
+            </span>
+          </div>
 
-      {/* Tools Grid */}
-      <div className="mt-8">
-        <div className="flex items-center justify-between mb-4">
-          <span className="text-xs font-semibold uppercase tracking-wider text-gray-400">
-            Available Tools ({filteredTools.length})
-          </span>
+          {filteredTools.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              {filteredTools.map((tool) => (
+                <ToolCard key={tool.id} tool={tool} />
+              ))}
+            </div>
+          ) : (
+            <div className="p-12 text-center bg-white rounded-xl border border-gray-200">
+              <p className="text-sm text-gray-500">
+                No tools found matching &ldquo;{filterQuery}&rdquo; in this category.
+              </p>
+            </div>
+          )}
         </div>
 
-        {filteredTools.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {filteredTools.map((tool) => (
-              <ToolCard key={tool.id} tool={tool} />
-            ))}
-          </div>
-        ) : (
-          <div className="p-12 text-center bg-white rounded-xl border border-gray-200">
-            <p className="text-sm text-gray-500">
-              No tools found matching &ldquo;{filterQuery}&rdquo; in this category.
-            </p>
-          </div>
-        )}
-      </div>
+        {/* Sidebar with Native Ads and Other Categories (4 Cols on Desktop) */}
+        <aside aria-label="Category Sidebar" className="lg:col-span-4 space-y-6 lg:sticky lg:top-24">
+          <NativeAdSlot />
 
-      <AdSlot position="bottom" />
+          <div className="bg-white rounded-2xl border border-black/[0.04] p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-3">
+              Explore Other Categories
+            </h3>
+            <div className="space-y-1.5">
+              {otherCategories.map((cat) => (
+                <Link
+                  key={cat.id}
+                  to={`/category/${cat.id}`}
+                  className="flex items-center gap-2.5 p-2 rounded-lg hover:bg-gray-50 transition-colors text-xs text-gray-700 hover:text-indigo-600 group"
+                >
+                  <DynamicIcon name={cat.iconName} className="w-4 h-4 text-gray-400 group-hover:text-indigo-600" />
+                  <span className="font-medium truncate">{cat.name}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </aside>
+      </div>
     </main>
   );
 };

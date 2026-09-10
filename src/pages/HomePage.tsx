@@ -307,9 +307,6 @@ export const HomePage: React.FC = () => {
             </div>
           </div>
         </section>
-
-        {/* Bottom Ad Slot */}
-        <AdSlot position="bottom" />
       </div>
     </main>
   );
