@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Search, Sparkles, Zap, Shield, Smartphone, Globe, ArrowRight, Layers } from 'lucide-react';
 import { CATEGORIES, TOOLS_LIST } from '../data/toolsData';
 import { ToolCard } from '../components/common/ToolCard';
+import { NativeAdCard } from '../components/common/NativeAdCard';
 import { DynamicIcon } from '../components/common/DynamicIcon';
 import { AdSlot } from '../components/common/AdSlot';
 
@@ -162,7 +163,11 @@ export const HomePage: React.FC = () => {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-              {popularTools.map((tool) => (
+              {popularTools.slice(0, 4).map((tool) => (
+                <ToolCard key={tool.id} tool={tool} />
+              ))}
+              <NativeAdCard key="native-ad-card" />
+              {popularTools.slice(4).map((tool) => (
                 <ToolCard key={tool.id} tool={tool} />
               ))}
             </div>

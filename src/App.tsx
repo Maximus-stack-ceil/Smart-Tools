@@ -3,18 +3,33 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ToastProvider } from './context/ToastContext';
 import { Header } from './components/common/Header';
 import { Footer } from './components/common/Footer';
 import { ScrollToTop } from './components/common/ScrollToTop';
+import { ScrollToTopButton } from './components/common/ScrollToTopButton';
 import { HomePage } from './pages/HomePage';
 import { ToolDetailPage } from './pages/ToolDetailPage';
 import { CategoryPage } from './pages/CategoryPage';
 import { AboutPage, PrivacyPage, TermsPage, ContactPage } from './pages/StaticPages';
 
 export default function App() {
+  useEffect(() => {
+    const scriptId = 'adsterra-socialbar-script';
+    if (document.getElementById(scriptId)) return; // prevent duplicate injection
+
+    const src = import.meta.env.VITE_ADSTERRA_SOCIALBAR_SRC;
+    if (!src) return;
+
+    const script = document.createElement('script');
+    script.id = scriptId;
+    script.src = src;
+    script.async = true;
+    document.body.appendChild(script);
+  }, []);
+
   return (
     <ToastProvider>
       <BrowserRouter>
@@ -39,6 +54,7 @@ export default function App() {
             </Routes>
           </div>
           <Footer />
+          <ScrollToTopButton />
         </div>
       </BrowserRouter>
     </ToastProvider>

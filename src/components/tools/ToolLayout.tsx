@@ -49,9 +49,10 @@ export const ToolLayout: React.FC<ToolLayoutProps> = ({ tool, children }) => {
   return (
     <main className="w-full py-6 md:py-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Top Breadcrumbs */}
-        <div className="mb-4">
+        {/* Top Breadcrumbs with Back-to-Home Arrow */}
+        <div>
           <Breadcrumbs
+            showBackArrow={true}
             items={[
               { label: category ? category.name : 'Tools', href: category ? `/category/${category.id}` : '/' },
               { label: tool.name },
